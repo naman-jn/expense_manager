@@ -1,6 +1,7 @@
 import 'package:expense_manager/models/expense.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as p;
 import 'dart:io';
 
 class DatabaseHelper {
@@ -32,7 +33,8 @@ class DatabaseHelper {
 
   Future<Database> initializeDatabase() async {
     Directory directory = await getApplicationDocumentsDirectory();
-    String path = directory.path + 'expenses.db';
+    String path = p.join(directory.toString(), 'db');
+    // String path = directory.path + 'expenses.db';
     print(path);
 
     var expensesDatabase =
@@ -57,7 +59,8 @@ class DatabaseHelper {
     Database db = await this.database;
     var result = await db.insert(expenseTable, expense.toMap());
     Directory directory = await getApplicationDocumentsDirectory();
-    String path = directory.path + 'expenses.db';
+    String path = p.join(directory.toString(), 'db');
+    // String path = directory.path + 'expenses.db';
     print(path);
     print(expense.toMap());
     return result;
